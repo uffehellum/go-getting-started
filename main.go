@@ -9,14 +9,14 @@ import (
 	_ "github.com/heroku/x/hmetrics/onload"
 )
 
-type addresult struct {
-	a   int
-	b   int
-	sum int
+type AddResult struct {
+	A   int
+	B   int
+	Sum int
 }
 
-func add(a, b int) addresult {
-	return addresult{a, b, a + b}
+func add(a, b int) AddResult {
+	return AddResult{a, b, a + b}
 }
 
 func main() {
