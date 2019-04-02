@@ -9,6 +9,16 @@ import (
 	_ "github.com/heroku/x/hmetrics/onload"
 )
 
+type addresult struct {
+	a   int
+	b   int
+	sum int
+}
+
+func add(a, b int) addresult {
+	return addresult{a, b, a + b}
+}
+
 func main() {
 	port := os.Getenv("PORT")
 
@@ -23,6 +33,10 @@ func main() {
 
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+	})
+	a := add(2, 2)
+	router.GET("/plus", func(c *gin.Context) {
+		c.JSON(http.StatusOK, a)
 	})
 
 	router.Run(":" + port)
