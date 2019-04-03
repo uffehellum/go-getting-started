@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"log"
 	"net/http"
 	"os"
@@ -38,6 +39,11 @@ func main() {
 	router.GET("/plus", func(c *gin.Context) {
 		c.JSON(http.StatusOK, a)
 	})
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Fatalf("Error opening database: %q", err)
+	}
+	router.GET("/db", dbFunc(db))
 
 	router.Run(":" + port)
 }
